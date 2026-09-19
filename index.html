@@ -17,202 +17,48 @@
     --white: #ffffff;
   }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    color: var(--deep);
-    background: var(--white);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+  body { font-family: 'Inter', sans-serif; color: var(--deep); background: var(--white); line-height: 1.6; overflow-x: hidden; }
   h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
   .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    padding: 16px 0;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-  }
+  header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 16px 0; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
   nav { display: flex; justify-content: space-between; align-items: center; }
-  .logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    color: var(--deep);
-    text-decoration: none;
-  }
+  .logo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: var(--deep); text-decoration: none; }
   .logo span { color: var(--blue); }
   .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: var(--deep);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
-    transition: color 0.3s;
-  }
+  .nav-links a { color: var(--deep); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; }
   .nav-links a:hover { color: var(--blue); }
-  .btn {
-    display: inline-block;
-    padding: 14px 32px;
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 15px;
-    transition: all 0.3s;
-    border: none;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-  }
+  .btn { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, var(--blue), var(--aqua)); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 15px; transition: all 0.3s; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 119, 182, 0.4); }
   .btn-outline { background: transparent; border: 2px solid var(--white); color: var(--white); }
   .btn-outline:hover { background: var(--white); color: var(--blue); }
-  .hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0a2540 0%, #0077b6 50%, #00b4d8 100%);
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    padding-top: 80px;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1920&q=80') center/cover;
-    opacity: 0.15;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 0;
-    right: 0;
-    height: 150px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 150'%3E%3Cpath fill='%23ffffff' d='M0,64L80,74.7C160,85,320,107,480,112C640,117,800,107,960,90.7C1120,75,1280,53,1360,42.7L1440,32L1440,150L1360,150C1280,150,1120,150,960,150C800,150,640,150,480,150C320,150,160,150,80,150L0,150Z'/%3E%3C/svg%3E") no-repeat;
-    background-size: cover;
-  }
+  .hero { min-height: 100vh; background: linear-gradient(135deg, #0a2540 0%, #0077b6 50%, #00b4d8 100%); display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1920&q=80') center/cover; opacity: 0.15; }
+  .hero::after { content: ''; position: absolute; bottom: -50px; left: 0; right: 0; height: 150px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 150'%3E%3Cpath fill='%23ffffff' d='M0,64L80,74.7C160,85,320,107,480,112C640,117,800,107,960,90.7C1120,75,1280,53,1360,42.7L1440,32L1440,150L1360,150C1280,150,1120,150,960,150C800,150,640,150,480,150C320,150,160,150,80,150L0,150Z'/%3E%3C/svg%3E") no-repeat; background-size: cover; }
   .hero-content { position: relative; z-index: 2; color: var(--white); max-width: 720px; }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 14px;
-    margin-bottom: 24px;
-    backdrop-filter: blur(10px);
-  }
-  .hero h1 {
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 24px;
-  }
-  .hero h1 span {
-    background: linear-gradient(135deg, #caf0f8, #00b4d8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 24px; backdrop-filter: blur(10px); }
+  .hero h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+  .hero h1 span { background: linear-gradient(135deg, #caf0f8, #00b4d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .hero p { font-size: 19px; opacity: 0.9; margin-bottom: 40px; max-width: 560px; }
   .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
   .hero-stats { display: flex; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
-  .stat-num {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #fff, #caf0f8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  .stat-num { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #fff, #caf0f8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .stat-label { font-size: 14px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
   section { padding: 100px 0; }
   .section-title { text-align: center; margin-bottom: 64px; }
-  .section-title .tag {
-    display: inline-block;
-    color: var(--blue);
-    font-weight: 600;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-  }
-  .section-title h2 {
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 800;
-    color: var(--deep);
-  }
+  .section-title .tag { display: inline-block; color: var(--blue); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .section-title h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; color: var(--deep); }
   .about { background: #f8fbfd; }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-  }
-  .about-img {
-    aspect-ratio: 4/5;
-    border-radius: 24px;
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,119,182,0.25);
-  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-img { aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(135deg, var(--blue), var(--aqua)); position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,119,182,0.25); }
   .about-img img { width: 100%; height: 100%; object-fit: cover; }
   .about-text h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; color: var(--deep); }
   .about-text p { margin-bottom: 16px; color: #334e68; font-size: 16px; }
   .about-features { list-style: none; margin-top: 24px; }
-  .about-features li {
-    padding: 10px 0 10px 32px;
-    position: relative;
-    color: #334e68;
-    font-weight: 500;
-  }
-  .about-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 22px;
-    height: 22px;
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 700;
-  }
-  .achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-  }
-  .achievement-card {
-    background: var(--white);
-    border: 1px solid #e3ecf2;
-    border-radius: 20px;
-    padding: 32px 28px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .achievement-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--blue), var(--aqua));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s;
-  }
+  .about-features li { padding: 10px 0 10px 32px; position: relative; color: #334e68; font-weight: 500; }
+  .about-features li::before { content: '✓'; position: absolute; left: 0; top: 10px; width: 22px; height: 22px; background: linear-gradient(135deg, var(--blue), var(--aqua)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .achievement-card { background: var(--white); border: 1px solid #e3ecf2; border-radius: 20px; padding: 32px 28px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .achievement-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--blue), var(--aqua)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
   .achievement-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,119,182,0.15); }
   .achievement-card:hover::before { transform: scaleX(1); }
   .achievement-icon { font-size: 36px; margin-bottom: 16px; }
@@ -221,177 +67,45 @@
   .services { background: var(--deep); color: var(--white); }
   .services .section-title h2 { color: var(--white); }
   .services .section-title .tag { color: var(--aqua); }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-  }
-  .service-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 36px 28px;
-    transition: all 0.3s;
-    backdrop-filter: blur(10px);
-  }
-  .service-card:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: var(--aqua);
-    transform: translateY(-6px);
-  }
-  .service-icon {
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    margin-bottom: 20px;
-  }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 36px 28px; transition: all 0.3s; backdrop-filter: blur(10px); }
+  .service-card:hover { background: rgba(255,255,255,0.08); border-color: var(--aqua); transform: translateY(-6px); }
+  .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--blue), var(--aqua)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
   .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
   .service-card p { font-size: 15px; opacity: 0.8; }
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 200px;
-    gap: 16px;
-  }
-  .gallery-item {
-    border-radius: 16px;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-    position: relative;
-  }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 16px; }
+  .gallery-item { border-radius: 16px; overflow: hidden; background: linear-gradient(135deg, var(--blue), var(--aqua)); position: relative; }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .gallery-item:hover img { transform: scale(1.1); }
   .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
   .gallery-item:nth-child(4) { grid-column: span 2; }
   .testimonials { background: #f8fbfd; }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-  }
-  .testimonial {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 32px;
-    border: 1px solid #e3ecf2;
-    position: relative;
-  }
-  .testimonial::before {
-    content: '"';
-    position: absolute;
-    top: 12px;
-    right: 24px;
-    font-size: 72px;
-    font-family: Georgia, serif;
-    color: var(--light);
-    line-height: 1;
-  }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .testimonial { background: var(--white); border-radius: 20px; padding: 32px; border: 1px solid #e3ecf2; position: relative; }
+  .testimonial::before { content: '"'; position: absolute; top: 12px; right: 24px; font-size: 72px; font-family: Georgia, serif; color: var(--light); line-height: 1; }
   .testimonial-text { font-size: 15px; color: #334e68; margin-bottom: 20px; position: relative; z-index: 1; }
   .testimonial-author { display: flex; align-items: center; gap: 12px; }
-  .testimonial-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue), var(--aqua));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-  }
+  .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--aqua)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-family: 'Montserrat', sans-serif; }
   .testimonial-name { font-weight: 600; font-size: 15px; color: var(--deep); }
   .testimonial-role { font-size: 13px; color: #829ab1; }
-  .contact {
-    background: linear-gradient(135deg, #0a2540, #0077b6);
-    color: var(--white);
-    position: relative;
-    overflow: hidden;
-  }
+  .contact { background: linear-gradient(135deg, #0a2540, #0077b6); color: var(--white); position: relative; overflow: hidden; }
   .contact .section-title h2 { color: var(--white); }
   .contact .section-title .tag { color: var(--aqua); }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
-  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
   .contact-info h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; }
   .contact-info p { opacity: 0.85; margin-bottom: 32px; }
   .contact-item { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-  .contact-item-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .contact-item-text strong {
-    display: block;
-    font-size: 13px;
-    opacity: 0.7;
-    font-weight: 400;
-    margin-bottom: 2px;
-  }
-  .contact-item-text a,
-  .contact-item-text span {
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-  }
-  .contact-form {
-    background: var(--white);
-    border-radius: 24px;
-    padding: 40px;
-    color: var(--deep);
-  }
+  .contact-item-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .contact-item-text strong { display: block; font-size: 13px; opacity: 0.7; font-weight: 400; margin-bottom: 2px; }
+  .contact-item-text a, .contact-item-text span { color: var(--white); text-decoration: none; font-weight: 600; font-size: 16px; }
+  .contact-form { background: var(--white); border-radius: 24px; padding: 40px; color: var(--deep); }
   .contact-form h3 { font-size: 22px; font-weight: 800; margin-bottom: 24px; }
   .form-group { margin-bottom: 16px; }
-  .form-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #334e68;
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #d9e2ec;
-    border-radius: 12px;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    color: var(--deep);
-    transition: border-color 0.3s;
-    background: #f8fbfd;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--blue);
-    background: var(--white);
-  }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #334e68; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1.5px solid #d9e2ec; border-radius: 12px; font-size: 15px; font-family: 'Inter', sans-serif; color: var(--deep); transition: border-color 0.3s; background: #f8fbfd; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); background: var(--white); }
   .contact-form .btn { width: 100%; margin-top: 8px; }
-  footer {
-    background: #05192e;
-    color: rgba(255,255,255,0.6);
-    padding: 40px 0;
-    text-align: center;
-    font-size: 14px;
-  }
+  footer { background: #05192e; color: rgba(255,255,255,0.6); padding: 40px 0; text-align: center; font-size: 14px; }
   footer a { color: var(--aqua); text-decoration: none; }
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -412,7 +126,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="container">
     <nav>
@@ -429,7 +142,6 @@
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <div class="container hero-content">
     <div class="hero-badge">🏊 Мастер спорта • Топ-10 тренеров 2025</div>
@@ -440,23 +152,13 @@
       <a href="#services" class="btn btn-outline">Услуги</a>
     </div>
     <div class="hero-stats">
-      <div>
-        <div class="stat-num">12+</div>
-        <div class="stat-label">Лет опыта</div>
-      </div>
-      <div>
-        <div class="stat-num">7</div>
-        <div class="stat-label">Титулов чемпиона</div>
-      </div>
-      <div>
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Года — возраст учеников</div>
-      </div>
+      <div><div class="stat-num">12+</div><div class="stat-label">Лет опыта</div></div>
+      <div><div class="stat-num">7</div><div class="stat-label">Титулов чемпиона</div></div>
+      <div><div class="stat-num">3+</div><div class="stat-label">Года — возраст учеников</div></div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
 <section class="about" id="about">
   <div class="container">
     <div class="section-title">
@@ -482,7 +184,6 @@
   </div>
 </section>
 
-<!-- ACHIEVEMENTS -->
 <section id="achievements">
   <div class="container">
     <div class="section-title">
@@ -490,41 +191,16 @@
       <h2>Почему мне можно доверять</h2>
     </div>
     <div class="achievements-grid">
-      <div class="achievement-card">
-        <div class="achievement-icon">🥇</div>
-        <h3>Мастер спорта</h3>
-        <p>Официальное звание за выдающиеся спортивные результаты</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">🏆</div>
-        <h3>Чемпион России</h3>
-        <p>3-кратный чемпион этапа Кубка России, финалист</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">🎖️</div>
-        <h3>4-кратный чемпион ВС РФ</h3>
-        <p>Чемпион России Вооружённых сил</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">🏅</div>
-        <h3>Чемпион Динамо и РЖД</h3>
-        <p>Чемпион России Общества «Динамо», рекордсмен РЖД</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">🌊</div>
-        <h3>Рекордсмен области</h3>
-        <p>Многократный чемпион и рекордсмен Челябинской области</p>
-      </div>
-      <div class="achievement-card">
-        <div class="achievement-icon">⭐</div>
-        <h3>ТОП-10 тренеров</h3>
-        <p>Лучшие тренеры по персональным тренировкам в бассейне, 2025</p>
-      </div>
+      <div class="achievement-card"><div class="achievement-icon">🥇</div><h3>Мастер спорта</h3><p>Официальное звание за выдающиеся спортивные результаты</p></div>
+      <div class="achievement-card"><div class="achievement-icon">🏆</div><h3>Чемпион России</h3><p>3-кратный чемпион этапа Кубка России, финалист</p></div>
+      <div class="achievement-card"><div class="achievement-icon">🎖️</div><h3>4-кратный чемпион ВС РФ</h3><p>Чемпион России Вооружённых сил</p></div>
+      <div class="achievement-card"><div class="achievement-icon">🏅</div><h3>Чемпион Динамо и РЖД</h3><p>Чемпион России Общества «Динамо», рекордсмен РЖД</p></div>
+      <div class="achievement-card"><div class="achievement-icon">🌊</div><h3>Рекордсмен области</h3><p>Многократный чемпион и рекордсмен Челябинской области</p></div>
+      <div class="achievement-card"><div class="achievement-icon">⭐</div><h3>ТОП-10 тренеров</h3><p>Лучшие тренеры по персональным тренировкам в бассейне, 2025</p></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
 <section class="services" id="services">
   <div class="container">
     <div class="section-title">
@@ -532,41 +208,16 @@
       <h2>Чем я могу помочь</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🧒</div>
-        <h3>Дети от 3 лет</h3>
-        <p>Игровое обучение плаванию, адаптация к воде, базовые навыки, уверенность в бассейне.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏊‍♂️</div>
-        <h3>Взрослые с нуля</h3>
-        <p>Преодоление страха воды, обучение базовым стилям, правильное дыхание.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎯</div>
-        <h3>Коррекция техники</h3>
-        <p>Для тех, кто уже плавает — разбор ошибок, работа над скоростью и экономичностью.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🏆</div>
-        <h3>Подготовка к соревнованиям</h3>
-        <p>Индивидуальный план, работа над стартами, поворотами, выносливостью.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">💻</div>
-        <h3>Онлайн-консультация</h3>
-        <p>Разбор техники по видео, составление плана тренировок, рекомендации.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📋</div>
-        <h3>Персональная программа</h3>
-        <p>Индивидуальный план тренировок на месяц с учётом ваших целей.</p>
-      </div>
+      <div class="service-card"><div class="service-icon">🧒</div><h3>Дети от 3 лет</h3><p>Игровое обучение плаванию, адаптация к воде, базовые навыки, уверенность в бассейне.</p></div>
+      <div class="service-card"><div class="service-icon">🏊‍♂️</div><h3>Взрослые с нуля</h3><p>Преодоление страха воды, обучение базовым стилям, правильное дыхание.</p></div>
+      <div class="service-card"><div class="service-icon">🎯</div><h3>Коррекция техники</h3><p>Для тех, кто уже плавает — разбор ошибок, работа над скоростью и экономичностью.</p></div>
+      <div class="service-card"><div class="service-icon">🏆</div><h3>Подготовка к соревнованиям</h3><p>Индивидуальный план, работа над стартами, поворотами, выносливостью.</p></div>
+      <div class="service-card"><div class="service-icon">💻</div><h3>Онлайн-консультация</h3><p>Разбор техники по видео, составление плана тренировок, рекомендации.</p></div>
+      <div class="service-card"><div class="service-icon">📋</div><h3>Персональная программа</h3><p>Индивидуальный план тренировок на месяц с учётом ваших целей.</p></div>
     </div>
   </div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery">
   <div class="container">
     <div class="section-title">
@@ -582,7 +233,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials">
   <div class="container">
     <div class="section-title">
@@ -592,39 +242,20 @@
     <div class="testimonials-grid">
       <div class="testimonial">
         <p class="testimonial-text">Сын боялся воды до слёз. Через 2 месяца с Алексеем — плавает кролем и просит ещё тренировки. Профессионал с большой буквы!</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">Е</div>
-          <div>
-            <div class="testimonial-name">Елена</div>
-            <div class="testimonial-role">мама ученика, 5 лет</div>
-          </div>
-        </div>
+        <div class="testimonial-author"><div class="testimonial-avatar">Е</div><div><div class="testimonial-name">Елена</div><div class="testimonial-role">мама ученика, 5 лет</div></div></div>
       </div>
       <div class="testimonial">
         <p class="testimonial-text">В 35 лет учился плавать с нуля. Алексей терпеливо объясняет, не давит. Сейчас проплываю 1 км без остановки. Рекомендую!</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">Д</div>
-          <div>
-            <div class="testimonial-name">Дмитрий</div>
-            <div class="testimonial-role">взрослый ученик</div>
-          </div>
-        </div>
+        <div class="testimonial-author"><div class="testimonial-avatar">Д</div><div><div class="testimonial-name">Дмитрий</div><div class="testimonial-role">взрослый ученик</div></div></div>
       </div>
       <div class="testimonial">
         <p class="testimonial-text">Готовилась к соревнованиям по мастерс. Алексей разобрал технику, убрал лишние движения — результат улучшился на 8 секунд!</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">А</div>
-          <div>
-            <div class="testimonial-name">Анна</div>
-            <div class="testimonial-role">спортсменка, мастерс</div>
-          </div>
-        </div>
+        <div class="testimonial-author"><div class="testimonial-avatar">А</div><div><div class="testimonial-name">Анна</div><div class="testimonial-role">спортсменка, мастерс</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
     <div class="section-title">
@@ -644,10 +275,17 @@
           </div>
         </div>
         <div class="contact-item">
+          <div class="contact-item-icon">✈️</div>
+          <div class="contact-item-text">
+            <strong>Telegram</strong>
+            <a href="https://t.me/Aaallleeexxx96" target="_blank">@Aaallleeexxx96</a>
+          </div>
+        </div>
+        <div class="contact-item">
           <div class="contact-item-icon">💬</div>
           <div class="contact-item-text">
-            <strong>WhatsApp / Telegram</strong>
-            <a href="https://t.me/aaallleeexxx96" target="_blank">@aaallleeexxx96</a>
+            <strong>WhatsApp</strong>
+            <a href="https://wa.me/79049727583" target="_blank">+7 (904) 972-75-83</a>
           </div>
         </div>
         <div class="contact-item">
@@ -661,14 +299,8 @@
 
       <form class="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Я свяжусь с вами в ближайшее время.');">
         <h3>Оставить заявку</h3>
-        <div class="form-group">
-          <label>Ваше имя</label>
-          <input type="text" placeholder="Как к вам обращаться?" required>
-        </div>
-        <div class="form-group">
-          <label>Телефон</label>
-          <input type="tel" placeholder="+7 (___) ___-__-__" required>
-        </div>
+        <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться?" required></div>
+        <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
         <div class="form-group">
           <label>Что вас интересует?</label>
           <select required>
@@ -680,17 +312,13 @@
             <option>Онлайн-консультация</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Комментарий (необязательно)</label>
-          <textarea rows="3" placeholder="Расскажите о ваших целях..."></textarea>
-        </div>
+        <div class="form-group"><label>Комментарий (необязательно)</label><textarea rows="3" placeholder="Расскажите о ваших целях..."></textarea></div>
         <button type="submit" class="btn">Отправить заявку</button>
       </form>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="container">
     <p>© 2025 Алексей Лаврик — Персональный тренер по плаванию. Все права защищены.</p>
