@@ -25,17 +25,17 @@
   .btn-outline { background: transparent; border: 2px solid var(--white); color: var(--white); }
   .btn-outline:hover { background: var(--white); color: var(--blue); }
   .hero { min-height: 100vh; background: linear-gradient(135deg, #0a2540 0%, #0077b6 50%, #00b4d8 100%); display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1920&q=80') center/cover; opacity: 0.15; }
-  .hero::after { content: ''; position: absolute; bottom: -50px; left: 0; right: 0; height: 150px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 150'%3E%3Cpath fill='%23ffffff' d='M0,64L80,74.7C160,85,320,107,480,112C640,117,800,107,960,90.7C1120,75,1280,53,1360,42.7L1440,32L1440,150L1360,150C1280,150,1120,150,960,150C800,150,640,150,480,150C320,150,160,150,80,150L0,150Z'/%3E%3C/svg%3E") no-repeat; background-size: cover; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url('photo1.jpg') center/cover; opacity: 0.4; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,37,64,0.7) 0%, rgba(0,119,182,0.5) 50%, rgba(0,180,216,0.4) 100%); }
   .hero-content { position: relative; z-index: 2; color: var(--white); max-width: 720px; }
   .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 24px; backdrop-filter: blur(10px); }
   .hero h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
   .hero h1 span { background: linear-gradient(135deg, #caf0f8, #00b4d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero p { font-size: 19px; opacity: 0.9; margin-bottom: 40px; max-width: 560px; }
+  .hero p { font-size: 19px; opacity: 0.95; margin-bottom: 40px; max-width: 560px; }
   .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
   .hero-stats { display: flex; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
   .stat-num { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #fff, #caf0f8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .stat-label { font-size: 14px; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+  .stat-label { font-size: 14px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
   section { padding: 100px 0; }
   .section-title { text-align: center; margin-bottom: 64px; }
   .section-title .tag { display: inline-block; color: var(--blue); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
