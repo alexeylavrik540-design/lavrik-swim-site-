@@ -297,13 +297,19 @@
         </div>
       </div>
 
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Я свяжусь с вами в ближайшее время.');">
+      <form class="contact-form" id="contactForm">
         <h3>Оставить заявку</h3>
-        <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться?" required></div>
-        <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
+        <div class="form-group">
+          <label>Ваше имя</label>
+          <input type="text" id="clientName" placeholder="Как к вам обращаться?" required>
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input type="tel" id="clientPhone" placeholder="+7 (___) ___-__-__" required>
+        </div>
         <div class="form-group">
           <label>Что вас интересует?</label>
-          <select required>
+          <select id="clientService" required>
             <option value="">Выберите услугу</option>
             <option>Обучение ребёнка (от 3 лет)</option>
             <option>Обучение взрослого с нуля</option>
@@ -312,8 +318,12 @@
             <option>Онлайн-консультация</option>
           </select>
         </div>
-        <div class="form-group"><label>Комментарий (необязательно)</label><textarea rows="3" placeholder="Расскажите о ваших целях..."></textarea></div>
+        <div class="form-group">
+          <label>Комментарий (необязательно)</label>
+          <textarea id="clientComment" rows="3" placeholder="Расскажите о ваших целях..."></textarea>
+        </div>
         <button type="submit" class="btn">Отправить заявку</button>
+        <p id="formStatus" style="margin-top:12px; font-size:14px; text-align:center;"></p>
       </form>
     </div>
   </div>
@@ -325,6 +335,42 @@
     <p style="margin-top: 8px;">Сделано с 💙 для тех, кто любит воду</p>
   </div>
 </footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('clientName').value;
+    const phone = document.getElementById('clientPhone').value;
+    const service = document.getElementById('clientService').value;
+    const comment = document.getElementById('clientComment').value || '—';
+    const status = document.getElementById('formStatus');
+
+    status.textContent = 'Отправляю...';
+    status.style.color = '#0077b6';
+
+    const token = '8882040060:AAGBGfgtsG94NNls8NYWqQLnwddIlfSQh6I';
+    const chatId = '169565075';
+    const text = '🏊 Новая заявка с сайта!\n\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🎯 Услуга: ' + service + '\n💬 Комментарий: ' + comment;
+
+    try {
+      const response = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text: text })
+      });
+      if (response.ok) {
+        status.textContent = '✅ Спасибо! Заявка отправлена. Я свяжусь с вами.';
+        status.style.color = '#00b894';
+        this.reset();
+      } else {
+        throw new Error('Ошибка');
+      }
+    } catch (err) {
+      status.textContent = '❌ Не удалось отправить. Позвоните мне: +7 (904) 972-75-83';
+      status.style.color = '#e74c3c';
+    }
+  });
+</script>
 
 <script>
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
