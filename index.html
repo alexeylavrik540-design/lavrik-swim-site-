@@ -8,14 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --deep: #0a2540;
-    --blue: #0077b6;
-    --aqua: #00b4d8;
-    --light: #caf0f8;
-    --gold: #f4a261;
-    --white: #ffffff;
-  }
+  :root { --deep: #0a2540; --blue: #0077b6; --aqua: #00b4d8; --light: #caf0f8; --gold: #f4a261; --white: #ffffff; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; color: var(--deep); background: var(--white); line-height: 1.6; overflow-x: hidden; }
   h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
@@ -73,6 +66,28 @@
   .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--blue), var(--aqua)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
   .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
   .service-card p { font-size: 15px; opacity: 0.8; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .pricing-card { background: var(--white); border: 2px solid #e3ecf2; border-radius: 20px; padding: 36px 28px; text-align: center; transition: all 0.3s; position: relative; }
+  .pricing-card:hover { border-color: var(--blue); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,119,182,0.15); }
+  .pricing-card.featured { border-color: var(--blue); background: linear-gradient(135deg, #f8fbfd, #e0f2fe); }
+  .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--blue), var(--aqua)); color: white; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+  .pricing-count { font-size: 15px; color: #627d98; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
+  .pricing-price { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 800; color: var(--deep); margin-bottom: 8px; }
+  .pricing-price small { font-size: 15px; font-weight: 500; color: #627d98; display: block; margin-top: 4px; }
+  .pricing-save { display: inline-block; background: #d1fae5; color: #047857; padding: 4px 12px; border-radius: 50px; font-size: 13px; font-weight: 600; }
+  .online-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .online-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px 26px; transition: all 0.3s; position: relative; }
+  .online-card:hover { transform: translateY(-6px); border-color: var(--aqua); background: rgba(255,255,255,0.08); }
+  .online-card.featured { border: 2px solid var(--aqua); background: rgba(255,255,255,0.1); }
+  .online-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--blue), var(--aqua)); color: white; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+  .online-icon { width: 52px; height: 52px; background: linear-gradient(135deg, var(--blue), var(--aqua)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; }
+  .online-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--white); }
+  .online-card p { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 18px; line-height: 1.5; }
+  .online-price { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--aqua); margin-bottom: 4px; }
+  .online-price small { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 500; }
+  .online-list { list-style: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .online-list li { font-size: 13px; color: rgba(255,255,255,0.85); padding: 4px 0 4px 20px; position: relative; }
+  .online-list li::before { content: '✓'; position: absolute; left: 0; color: var(--aqua); font-weight: 700; }
   .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 16px; }
   .gallery-item { border-radius: 16px; overflow: hidden; background: linear-gradient(135deg, var(--blue), var(--aqua)); position: relative; }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
@@ -134,7 +149,8 @@
         <li><a href="#about">Обо мне</a></li>
         <li><a href="#achievements">Достижения</a></li>
         <li><a href="#services">Услуги</a></li>
-        <li><a href="#gallery">Галерея</a></li>
+        <li><a href="#pricing">Цены</a></li>
+        <li><a href="#online">Онлайн</a></li>
         <li><a href="#contact">Контакты</a></li>
       </ul>
       <a href="#contact" class="btn">Записаться</a>
@@ -214,6 +230,91 @@
       <div class="service-card"><div class="service-icon">🏆</div><h3>Подготовка к соревнованиям</h3><p>Индивидуальный план, работа над стартами, поворотами, выносливостью.</p></div>
       <div class="service-card"><div class="service-icon">💻</div><h3>Онлайн-консультация</h3><p>Разбор техники по видео, составление плана тренировок, рекомендации.</p></div>
       <div class="service-card"><div class="service-icon">📋</div><h3>Персональная программа</h3><p>Индивидуальный план тренировок на месяц с учётом ваших целей.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background: #f8fbfd;">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag">Стоимость</span>
+      <h2>Индивидуальные тренировки</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-count">1 тренировка</div>
+        <div class="pricing-price">5 000 ₽</div>
+        <div style="font-size: 14px; color: #627d98;">Пробное занятие, знакомство с тренером</div>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Выгодно</div>
+        <div class="pricing-count">5 тренировок</div>
+        <div class="pricing-price">23 900 ₽<small>4 780 ₽ за занятие</small></div>
+        <div class="pricing-save">Экономия 1 100 ₽</div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-count">10 тренировок</div>
+        <div class="pricing-price">45 000 ₽<small>4 500 ₽ за занятие</small></div>
+        <div class="pricing-save">Экономия 5 000 ₽</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="online" id="online" style="background: var(--deep); color: var(--white);">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag" style="color: var(--aqua);">Онлайн</span>
+      <h2 style="color: var(--white);">Онлайн-услуги</h2>
+    </div>
+    <div class="online-grid">
+      <div class="online-card">
+        <div class="online-icon">🎥</div>
+        <h3>Видеоразбор техники</h3>
+        <p>Присылаете видео — я делаю покадровый разбор с упражнениями.</p>
+        <div class="online-price">3 500 ₽</div>
+        <ul class="online-list">
+          <li>Разбор всех ракурсов</li>
+          <li>Видео-ответ с объяснением</li>
+          <li>План на 2 недели</li>
+        </ul>
+      </div>
+      <div class="online-card">
+        <div class="online-icon">💻</div>
+        <h3>Онлайн-занятие</h3>
+        <p>Персональное занятие 60 минут по видеосвязи.</p>
+        <div class="online-price">5 000 ₽</div>
+        <ul class="online-list">
+          <li>Разбор в реальном времени</li>
+          <li>Домашнее задание</li>
+          <li>Поддержка 48 часов</li>
+        </ul>
+      </div>
+      <div class="online-card featured">
+        <div class="online-badge">Популярно</div>
+        <div class="online-icon">📋</div>
+        <h3>Программа на месяц</h3>
+        <p>Индивидуальный план тренировок на 4 недели.</p>
+        <div class="online-price">10 000 ₽</div>
+        <ul class="online-list">
+          <li>План на 12 тренировок</li>
+          <li>Видео-инструкции к упражнениям</li>
+          <li>Еженедельная корректировка</li>
+        </ul>
+      </div>
+      <div class="online-card">
+        <div class="online-icon">🏆</div>
+        <h3>Онлайн-ведение</h3>
+        <p>Полное сопровождение: тренировки, питание, восстановление.</p>
+        <div class="online-price">20 000 ₽<small> / мес</small></div>
+        <ul class="online-list">
+          <li>Программа на 12 тренировок</li>
+          <li>4 видеозвонка (1 раз в неделю)</li>
+          <li>Разбор каждого заплыва</li>
+          <li>Питание и восстановление</li>
+          <li>Связь в чате 24/7</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -315,7 +416,11 @@
             <option>Обучение взрослого с нуля</option>
             <option>Коррекция техники</option>
             <option>Подготовка к соревнованиям</option>
-            <option>Онлайн-консультация</option>
+            <option>Индивидуальные тренировки (пакет)</option>
+            <option>Видеоразбор техники</option>
+            <option>Онлайн-занятие</option>
+            <option>Программа на месяц</option>
+            <option>Онлайн-ведение</option>
           </select>
         </div>
         <div class="form-group">
