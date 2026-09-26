@@ -427,8 +427,8 @@
           <label>Комментарий (необязательно)</label>
           <textarea id="clientComment" rows="3" placeholder="Расскажите о ваших целях..."></textarea>
         </div>
-        <button type="submit" class="btn">Отправить заявку</button>
-        <p id="formStatus" style="margin-top:12px; font-size:14px; text-align:center;"></p>
+        <button type="submit" class="btn">Отправить в WhatsApp</button>
+        <p style="margin-top:12px; font-size:12px; color:#627d98; text-align:center;">Откроется WhatsApp — просто нажмите «Отправить»</p>
       </form>
     </div>
   </div>
@@ -448,28 +448,11 @@
     const phone = document.getElementById('clientPhone').value;
     const service = document.getElementById('clientService').value;
     const comment = document.getElementById('clientComment').value || '—';
-    const status = document.getElementById('formStatus');
 
-    status.textContent = 'Отправляю...';
-    status.style.color = '#0077b6';
+    const text = 'Здравствуйте! Хочу записаться на тренировку.\n\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🎯 Услуга: ' + service + '\n💬 Комментарий: ' + comment;
+    const url = 'https://wa.me/79049727583?text=' + encodeURIComponent(text);
 
-    const token = '8882040060:AAGBGfgtsG94NNls8NYWqQLnwddIlfSQh6I';
-    const chatId = '169565075';
-    const text = '🏊 Новая заявка с сайта!\n\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🎯 Услуга: ' + service + '\n💬 Комментарий: ' + comment;
-
-    const telegramUrl = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=' + chatId + '&text=' + encodeURIComponent(text);
-    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(telegramUrl);
-
-    fetch(proxyUrl)
-      .then(function() {
-        status.textContent = '✅ Спасибо! Заявка отправлена. Я свяжусь с вами.';
-        status.style.color = '#00b894';
-        document.getElementById('contactForm').reset();
-      })
-      .catch(function() {
-        status.textContent = '❌ Не удалось отправить. Позвоните: +7 (904) 972-75-83';
-        status.style.color = '#e74c3c';
-      });
+    window.open(url, '_blank');
   });
 </script>
 
