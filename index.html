@@ -457,9 +457,10 @@
     const chatId = '169565075';
     const text = '🏊 Новая заявка с сайта!\n\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🎯 Услуга: ' + service + '\n💬 Комментарий: ' + comment;
 
-    const url = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=' + chatId + '&text=' + encodeURIComponent(text);
+    const telegramUrl = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=' + chatId + '&text=' + encodeURIComponent(text);
+    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(telegramUrl);
 
-    fetch(url, { mode: 'no-cors' })
+    fetch(proxyUrl)
       .then(function() {
         status.textContent = '✅ Спасибо! Заявка отправлена. Я свяжусь с вами.';
         status.style.color = '#00b894';
