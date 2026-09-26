@@ -25,13 +25,13 @@
   .btn-outline { background: transparent; border: 2px solid var(--white); color: var(--white); }
   .btn-outline:hover { background: var(--white); color: var(--blue); }
   .hero { min-height: 100vh; background: #0a2540; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: url('photo1.jpg') center/cover; opacity: 1; z-index: 0; }
-  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,37,64,0.75) 0%, rgba(0,119,182,0.55) 50%, rgba(0,180,216,0.4) 100%); z-index: 1; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url('photo3.jpg') center/cover; opacity: 0.85; z-index: 0; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,37,64,0.75) 0%, rgba(0,119,182,0.5) 50%, rgba(0,180,216,0.35) 100%); z-index: 1; }
   .hero-content { position: relative; z-index: 2; color: var(--white); max-width: 720px; }
   .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 24px; backdrop-filter: blur(10px); }
-  .hero h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+  .hero h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
   .hero h1 span { background: linear-gradient(135deg, #caf0f8, #00b4d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero p { font-size: 19px; opacity: 0.95; margin-bottom: 40px; max-width: 560px; text-shadow: 0 1px 10px rgba(0,0,0,0.3); }
+  .hero p { font-size: 19px; opacity: 0.95; margin-bottom: 40px; max-width: 560px; text-shadow: 0 1px 10px rgba(0,0,0,0.4); }
   .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
   .hero-stats { display: flex; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
   .stat-num { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #fff, #caf0f8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -326,10 +326,10 @@
       <h2>Моменты из бассейна</h2>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1600965962102-9d260a71890d?w=800&q=80" alt="Тренировка"></div>
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&q=80" alt="Плавание"></div>
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=600&q=80" alt="Бассейн"></div>
-      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80" alt="Пловец"></div>
+      <div class="gallery-item"><img src="photo3.jpg" alt="Тренировка"></div>
+      <div class="gallery-item"><img src="photo1.jpg" alt="Плавание"></div>
+      <div class="gallery-item"><img src="photo3.jpg" alt="Бассейн"></div>
+      <div class="gallery-item"><img src="photo1.jpg" alt="Пловец"></div>
     </div>
   </div>
 </section>
