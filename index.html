@@ -165,7 +165,7 @@
     <p>Персональный тренер по плаванию для детей от 3 лет и взрослых. Подготовка к соревнованиям, коррекция техники, обучение с нуля.</p>
     <div class="hero-buttons">
       <a href="#contact" class="btn">Записаться на тренировку</a>
-      <a href="#services" class="btn btn-outline">Услуги</a>
+      <a href="https://t.me/lavrikSwim" target="_blank" class="btn btn-outline">Telegram-канал</a>
     </div>
     <div class="hero-stats">
       <div><div class="stat-num">12+</div><div class="stat-label">Лет опыта</div></div>
@@ -365,28 +365,21 @@
     </div>
     <div class="contact-grid">
       <div class="contact-info">
-        <h3>Свяжитесь со мной удобным способом</h3>
+        <h3>Свяжитесь со мной в Telegram</h3>
         <p>Отвечу на вопросы, подберу программу и удобное время. Занятия проходят в Зеленограде (17-й микрорайон), также возможны онлайн-консультации.</p>
         
         <div class="contact-item">
-          <div class="contact-item-icon">📞</div>
-          <div class="contact-item-text">
-            <strong>Телефон</strong>
-            <a href="tel:+79049727583">+7 (904) 972-75-83</a>
-          </div>
-        </div>
-        <div class="contact-item">
           <div class="contact-item-icon">✈️</div>
           <div class="contact-item-text">
-            <strong>Telegram</strong>
+            <strong>Telegram (личные вопросы)</strong>
             <a href="https://t.me/Aaallleeexxx96" target="_blank">@Aaallleeexxx96</a>
           </div>
         </div>
         <div class="contact-item">
-          <div class="contact-item-icon">💬</div>
+          <div class="contact-item-icon">📢</div>
           <div class="contact-item-text">
-            <strong>WhatsApp</strong>
-            <a href="https://wa.me/79049727583" target="_blank">+7 (904) 972-75-83</a>
+            <strong>Telegram-канал</strong>
+            <a href="https://t.me/lavrikSwim" target="_blank">@lavrikSwim</a>
           </div>
         </div>
         <div class="contact-item">
@@ -403,10 +396,6 @@
         <div class="form-group">
           <label>Ваше имя</label>
           <input type="text" id="clientName" placeholder="Как к вам обращаться?" required>
-        </div>
-        <div class="form-group">
-          <label>Телефон</label>
-          <input type="tel" id="clientPhone" placeholder="+7 (___) ___-__-__" required>
         </div>
         <div class="form-group">
           <label>Что вас интересует?</label>
@@ -427,8 +416,8 @@
           <label>Комментарий (необязательно)</label>
           <textarea id="clientComment" rows="3" placeholder="Расскажите о ваших целях..."></textarea>
         </div>
-        <button type="submit" class="btn">Отправить в WhatsApp</button>
-        <p style="margin-top:12px; font-size:12px; color:#627d98; text-align:center;">Откроется WhatsApp — просто нажмите «Отправить»</p>
+        <button type="submit" class="btn">Отправить в Telegram</button>
+        <p style="margin-top:12px; font-size:12px; color:#627d98; text-align:center;">Откроется Telegram — просто нажмите «Отправить»</p>
       </form>
     </div>
   </div>
@@ -445,12 +434,11 @@
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const name = document.getElementById('clientName').value;
-    const phone = document.getElementById('clientPhone').value;
     const service = document.getElementById('clientService').value;
     const comment = document.getElementById('clientComment').value || '—';
 
-    const text = 'Здравствуйте! Хочу записаться на тренировку.\n\n👤 Имя: ' + name + '\n📞 Телефон: ' + phone + '\n🎯 Услуга: ' + service + '\n💬 Комментарий: ' + comment;
-    const url = 'https://wa.me/79049727583?text=' + encodeURIComponent(text);
+    const text = 'Здравствуйте! Хочу записаться на тренировку.\n\n👤 Имя: ' + name + '\n🎯 Услуга: ' + service + '\n💬 Комментарий: ' + comment;
+    const url = 'https://t.me/Aaallleeexxx96?text=' + encodeURIComponent(text);
 
     window.open(url, '_blank');
   });
