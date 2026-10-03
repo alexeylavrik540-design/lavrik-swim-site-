@@ -66,15 +66,6 @@
   .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--blue), var(--aqua)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
   .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
   .service-card p { font-size: 15px; opacity: 0.8; }
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
-  .pricing-card { background: var(--white); border: 2px solid #e3ecf2; border-radius: 20px; padding: 36px 28px; text-align: center; transition: all 0.3s; position: relative; }
-  .pricing-card:hover { border-color: var(--blue); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,119,182,0.15); }
-  .pricing-card.featured { border-color: var(--blue); background: linear-gradient(135deg, #f8fbfd, #e0f2fe); }
-  .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--blue), var(--aqua)); color: white; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-  .pricing-count { font-size: 15px; color: #627d98; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
-  .pricing-price { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 800; color: var(--deep); margin-bottom: 8px; }
-  .pricing-price small { font-size: 15px; font-weight: 500; color: #627d98; display: block; margin-top: 4px; }
-  .pricing-save { display: inline-block; background: #d1fae5; color: #047857; padding: 4px 12px; border-radius: 50px; font-size: 13px; font-weight: 600; }
   .online-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
   .online-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px 26px; transition: all 0.3s; position: relative; }
   .online-card:hover { transform: translateY(-6px); border-color: var(--aqua); background: rgba(255,255,255,0.08); }
@@ -145,7 +136,6 @@
         <li><a href="#about">Обо мне</a></li>
         <li><a href="#achievements">Достижения</a></li>
         <li><a href="#services">Услуги</a></li>
-        <li><a href="#pricing">Цены</a></li>
         <li><a href="#online">Онлайн</a></li>
         <li><a href="#contact">Контакты</a></li>
       </ul>
@@ -230,33 +220,6 @@
   </div>
 </section>
 
-<section id="pricing" style="background: #f8fbfd;">
-  <div class="container">
-    <div class="section-title">
-      <span class="tag">Стоимость</span>
-      <h2>Индивидуальные тренировки</h2>
-    </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-count">1 тренировка</div>
-        <div class="pricing-price">5 000 ₽</div>
-        <div style="font-size: 14px; color: #627d98;">Пробное занятие, знакомство с тренером</div>
-      </div>
-      <div class="pricing-card featured">
-        <div class="pricing-badge">Выгодно</div>
-        <div class="pricing-count">5 тренировок</div>
-        <div class="pricing-price">23 900 ₽<small>4 780 ₽ за занятие</small></div>
-        <div class="pricing-save">Экономия 1 100 ₽</div>
-      </div>
-      <div class="pricing-card">
-        <div class="pricing-count">10 тренировок</div>
-        <div class="pricing-price">45 000 ₽<small>4 500 ₽ за занятие</small></div>
-        <div class="pricing-save">Экономия 5 000 ₽</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="online" id="online" style="background: var(--deep); color: var(--white);">
   <div class="container">
     <div class="section-title">
@@ -268,7 +231,7 @@
         <div class="online-icon">🎥</div>
         <h3>Видеоразбор техники</h3>
         <p>Присылаете видео — я делаю покадровый разбор с упражнениями.</p>
-        <div class="online-price">3 500 ₽</div>
+        <div class="online-price">2 500 ₽</div>
         <ul class="online-list">
           <li>Разбор всех ракурсов</li>
           <li>Видео-ответ с объяснением</li>
@@ -279,7 +242,7 @@
         <div class="online-icon">💻</div>
         <h3>Онлайн-занятие</h3>
         <p>Персональное занятие 60 минут по видеосвязи.</p>
-        <div class="online-price">5 000 ₽</div>
+        <div class="online-price">3 500 ₽</div>
         <ul class="online-list">
           <li>Разбор в реальном времени</li>
           <li>Домашнее задание</li>
@@ -291,7 +254,7 @@
         <div class="online-icon">📋</div>
         <h3>Программа на месяц</h3>
         <p>Индивидуальный план тренировок на 4 недели.</p>
-        <div class="online-price">10 000 ₽</div>
+        <div class="online-price">7 000 ₽</div>
         <ul class="online-list">
           <li>План на 12 тренировок</li>
           <li>Видео-инструкции к упражнениям</li>
@@ -302,7 +265,7 @@
         <div class="online-icon">🏆</div>
         <h3>Онлайн-ведение</h3>
         <p>Полное сопровождение: тренировки, питание, восстановление.</p>
-        <div class="online-price">20 000 ₽<small> / мес</small></div>
+        <div class="online-price">15 000 ₽<small> / мес</small></div>
         <ul class="online-list">
           <li>Программа на 12 тренировок</li>
           <li>4 видеозвонка (1 раз в неделю)</li>
@@ -400,7 +363,6 @@
             <option>Обучение взрослого с нуля</option>
             <option>Коррекция техники</option>
             <option>Подготовка к соревнованиям</option>
-            <option>Индивидуальные тренировки (пакет)</option>
             <option>Видеоразбор техники</option>
             <option>Онлайн-занятие</option>
             <option>Программа на месяц</option>
