@@ -16,7 +16,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Алексей Лаврик — Персональный тренер по плаванию</title>
-<meta name="description" content="Мастер спорта, чемпион России. Обучение плаванию детей и взрослых, подготовка к соревнованиям, коррекция техники. Онлайн из любой точки мира.">
+<meta name="description" content="Мастер спорта, чемпион России. Пробное занятие со скидкой 50%. Обучение плаванию детей и взрослых, подготовка к соревнованиям, коррекция техники. Онлайн из любой точки мира.">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,26 +32,35 @@
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { color: var(--deep); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; }
   .nav-links a:hover { color: var(--blue); }
-  .btn { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, var(--blue), var(--aqua)); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 15px; transition: all 0.3s; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .btn { display: inline-block; padding: 16px 36px; background: linear-gradient(135deg, var(--blue), var(--aqua)); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 16px; transition: all 0.3s; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 119, 182, 0.4); }
   .btn-outline { background: transparent; border: 2px solid var(--white); color: var(--white); }
   .btn-outline:hover { background: var(--white); color: var(--blue); }
   .hero { min-height: 100vh; background: #0a2540; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 80px; }
   .hero::before { content: ''; position: absolute; inset: 0; background: url('https://i.imgur.com/s720CQL.jpg') center/cover; opacity: 0.85; z-index: 0; }
-  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,37,64,0.65) 0%, rgba(0,119,182,0.4) 50%, rgba(0,180,216,0.25) 100%); z-index: 1; }
-  .hero-content { position: relative; z-index: 2; color: var(--white); max-width: 720px; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,37,64,0.7) 0%, rgba(0,119,182,0.45) 50%, rgba(0,180,216,0.3) 100%); z-index: 1; }
+  .hero-content { position: relative; z-index: 2; color: var(--white); max-width: 760px; }
   .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-bottom: 24px; backdrop-filter: blur(10px); }
-  .hero h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+  .hero h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
   .hero h1 span { background: linear-gradient(135deg, #caf0f8, #00b4d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-offer { display: inline-block; background: linear-gradient(135deg, #f4a261, #e76f51); padding: 12px 24px; border-radius: 12px; font-weight: 700; font-size: 18px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(244, 162, 97, 0.4); }
+  .hero-offer s { opacity: 0.7; font-weight: 400; margin-left: 8px; }
   .hero p { font-size: 19px; opacity: 0.95; margin-bottom: 40px; max-width: 560px; text-shadow: 0 1px 10px rgba(0,0,0,0.4); }
   .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-  .hero-stats { display: flex; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 48px; margin-top: 56px; flex-wrap: wrap; }
   .stat-num { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; background: linear-gradient(135deg, #fff, #caf0f8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .stat-label { font-size: 14px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
   section { padding: 100px 0; }
   .section-title { text-align: center; margin-bottom: 64px; }
   .section-title .tag { display: inline-block; color: var(--blue); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
   .section-title h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; color: var(--deep); }
+  /* Блок доверия после hero */
+  .trust { background: #f8fbfd; padding: 50px 0; }
+  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; text-align: center; }
+  .trust-item { padding: 20px; }
+  .trust-icon { font-size: 40px; margin-bottom: 12px; }
+  .trust-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--deep); }
+  .trust-item p { font-size: 14px; color: #627d98; }
   .about { background: #f8fbfd; }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
   .about-img { aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(135deg, var(--blue), var(--aqua)); position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(0,119,182,0.25); }
@@ -78,6 +87,12 @@
   .service-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--blue), var(--aqua)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
   .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
   .service-card p { font-size: 15px; opacity: 0.8; }
+  /* CTA-полоса */
+  .cta-strip { background: linear-gradient(135deg, #0077b6, #00b4d8); color: var(--white); padding: 60px 0; text-align: center; }
+  .cta-strip h3 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+  .cta-strip p { font-size: 18px; opacity: 0.95; margin-bottom: 28px; }
+  .cta-strip .btn { background: var(--white); color: var(--blue); }
+  .cta-strip .btn:hover { background: #f0f9ff; box-shadow: 0 10px 30px rgba(255,255,255,0.3); }
   .online-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
   .online-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px 26px; transition: all 0.3s; position: relative; }
   .online-card:hover { transform: translateY(-6px); border-color: var(--aqua); background: rgba(255,255,255,0.08); }
@@ -114,7 +129,8 @@
   .contact-item-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .contact-item-text strong { display: block; font-size: 13px; opacity: 0.7; font-weight: 400; margin-bottom: 2px; }
   .contact-item-text a, .contact-item-text span { color: var(--white); text-decoration: none; font-weight: 600; font-size: 16px; }
-  .contact-form { background: var(--white); border-radius: 24px; padding: 40px; color: var(--deep); }
+  .contact-form { background: var(--white); border-radius: 24px; padding: 40px; color: var(--deep); position: relative; }
+  .form-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #00b894, #00997a); color: white; padding: 6px 18px; border-radius: 50px; font-size: 13px; font-weight: 700; white-space: nowrap; box-shadow: 0 5px 20px rgba(0, 184, 148, 0.4); }
   .contact-form h3 { font-size: 22px; font-weight: 800; margin-bottom: 24px; }
   .form-group { margin-bottom: 16px; }
   .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #334e68; }
@@ -156,19 +172,49 @@
   </div>
 </header>
 
+<!-- HERO с усиленным оффером -->
 <section class="hero">
   <div class="container hero-content">
     <div class="hero-badge">🏊 Мастер спорта • Топ-10 тренеров 2025</div>
-    <h1>Научу плавать.<br>Помогу <span>побеждать</span>.</h1>
-    <p>Персональный тренер по плаванию для детей от 3 лет и взрослых. Подготовка к соревнованиям, коррекция техники, обучение с нуля.</p>
+    <h1>Научу плавать за 30 дней.<br>Или <span>верну деньги</span>.</h1>
+    <div class="hero-offer">🎯 Пробное занятие — 2 500 ₽ <s>5 000 ₽</s></div>
+    <p>Персональный тренер для детей от 3 лет и взрослых. Подготовка к соревнованиям, коррекция техники, обучение с нуля. Онлайн — из любой точки мира.</p>
     <div class="hero-buttons">
-      <a href="#contact" class="btn">Записаться на тренировку</a>
+      <a href="#contact" class="btn">Записаться на пробное</a>
       <a href="https://t.me/lavrikSwim" target="_blank" class="btn btn-outline">Telegram-канал</a>
     </div>
     <div class="hero-stats">
       <div><div class="stat-num">12+</div><div class="stat-label">Лет опыта</div></div>
       <div><div class="stat-num">7</div><div class="stat-label">Титулов чемпиона</div></div>
-      <div><div class="stat-num">3+</div><div class="stat-label">Года — возраст учеников</div></div>
+      <div><div class="stat-num">500+</div><div class="stat-label">Учеников</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- БЛОК ДОВЕРИЯ -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">🥇</div>
+        <h3>Мастер спорта</h3>
+        <p>Чемпион России, рекордсмен</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⚡</div>
+        <h3>Быстрый ответ</h3>
+        <p>Отвечу в Telegram за 15 минут</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🎯</div>
+        <h3>Гарантия результата</h3>
+        <p>Научу за 30 дней или верну деньги</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🌍</div>
+        <h3>Онлайн из любой точки</h3>
+        <p>Работаю с учениками по всему миру</p>
+      </div>
     </div>
   </div>
 </section>
@@ -232,6 +278,15 @@
   </div>
 </section>
 
+<!-- CTA-полоса 1 -->
+<section class="cta-strip">
+  <div class="container">
+    <h3>Не уверены, что подходит?</h3>
+    <p>Запишитесь на пробное занятие со скидкой 50% — познакомимся, разберу вашу технику</p>
+    <a href="#contact" class="btn">Записаться за 2 500 ₽</a>
+  </div>
+</section>
+
 <section class="online" id="online" style="background: var(--deep); color: var(--white);">
   <div class="container">
     <div class="section-title">
@@ -287,6 +342,15 @@
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- CTA-полоса 2 -->
+<section class="cta-strip">
+  <div class="container">
+    <h3>Готовы начать?</h3>
+    <p>Первое занятие — 2 500 ₽. Отвечу в Telegram за 15 минут</p>
+    <a href="#contact" class="btn">Записаться на тренировку</a>
   </div>
 </section>
 
@@ -398,6 +462,7 @@
       </div>
 
       <form class="contact-form" id="contactForm">
+        <div class="form-badge">⚡ Отвечу за 15 минут</div>
         <h3>Оставить заявку</h3>
         <div class="form-group">
           <label>Ваше имя</label>
@@ -407,6 +472,7 @@
           <label>Что вас интересует?</label>
           <select id="clientService" required>
             <option value="">Выберите услугу</option>
+            <option>Пробное занятие — 2 500 ₽</option>
             <option>Обучение ребёнка (от 3 лет)</option>
             <option>Обучение взрослого с нуля</option>
             <option>Коррекция техники</option>
