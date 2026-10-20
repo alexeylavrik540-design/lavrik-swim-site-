@@ -28,7 +28,7 @@ nav {min-height:76px;display:flex;align-items:center;justify-content:space-betwe
 .btn {display:inline-flex;justify-content:center;align-items:center;background:var(--blue);color:white;padding:14px 22px;border-radius:50px;font-size:14px;font-weight:800;border:1px solid var(--blue);cursor:pointer}
 .btn:hover {background:#066da3}
 .btn-outline {background:transparent;color:white;border-color:#ffffff99}
-.hero {color:white;background:linear-gradient(90deg,#041424ed,#051c2f9c),url("photo3.png") center/cover no-repeat;min-height:650px;display:flex;align-items:center;padding:80px 0}
+.hero {color:white;background:linear-gradient(90deg,#041424ed,#051c2f9c),url("https://i.imgur.com/s720CQL.jpg") center/cover no-repeat;min-height:650px;display:flex;align-items:center;padding:80px 0}
 .hero-content {max-width:760px}
 .eyebrow {display:inline-block;border:1px solid #ffffff55;background:#ffffff18;padding:8px 14px;border-radius:40px;font-size:12px;font-weight:800;letter-spacing:1px;margin-bottom:24px}
 h1 {font-size:clamp(38px,6vw,68px);line-height:1.1;letter-spacing:-1.5px}
@@ -75,6 +75,13 @@ h2 {font-size:clamp(30px,4vw,44px);line-height:1.15;letter-spacing:-.8px}
 .step h3 {font-size:20px;margin-bottom:10px}
 .step p {font-size:14px;color:var(--muted)}
 .cta {background:linear-gradient(120deg,#087fbd,#0d567f);color:white;text-align:center}
+
+.gallerygrid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.galleryphoto {aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--ice)}
+.galleryphoto img {width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.galleryphoto:hover img {transform:scale(1.04)}
+@media(max-width:850px) {.gallerygrid {grid-template-columns:1fr}}
+
 .cta p {color:#e0edf5;max-width:640px;margin:18px auto 25px}
 footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
 .footerrow {display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
@@ -150,7 +157,7 @@ footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
 <section id="about">
  <div class="container aboutgrid">
   <div class="photo">
-   <img src="photo3.png" alt="Алексей Лаврик — тренер по плаванию">
+   <img src="https://i.imgur.com/pLMZ5GF.jpg" alt="Алексей Лаврик — тренер по плаванию">
   </div>
   <div class="aboutcopy">
    <div class="kicker">О тренере</div>
@@ -215,6 +222,22 @@ footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
    <div class="step"><div class="stepnum">ШАГ 01</div><h3>Выбери направление</h3><p>Определи, что важнее: базовая техника, подготовка к триатлону или открытая вода.</p></div>
    <div class="step"><div class="stepnum">ШАГ 02</div><h3>Получи план</h3><p>Следуй тренировкам, упражнениям и рекомендациям в выбранной программе.</p></div>
    <div class="step"><div class="stepnum">ШАГ 03</div><h3>Отслеживай прогресс</h3><p>Записывай результаты контрольных заданий и сравнивай их в конце программы.</p></div>
+  </div>
+ </div>
+</section>
+
+
+<section id="gallery">
+ <div class="container">
+  <div class="sectionhead">
+   <div class="kicker">Галерея</div>
+   <h2>Моменты из бассейна</h2>
+   <p>Тренировки, соревнования и плавание в действии.</p>
+  </div>
+  <div class="gallerygrid">
+   <div class="galleryphoto"><img src="https://i.imgur.com/s720CQL.jpg" alt="Тренировка по плаванию"></div>
+   <div class="galleryphoto"><img src="https://i.imgur.com/SdkadxU.jpg" alt="Соревнования по плаванию"></div>
+   <div class="galleryphoto"><img src="https://i.imgur.com/ZH2guVj.jpg" alt="Заплыв"></div>
   </div>
  </div>
 </section>
