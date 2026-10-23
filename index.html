@@ -1,3 +1,4 @@
+```
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -25,6 +26,8 @@ nav {min-height:76px;display:flex;align-items:center;justify-content:space-betwe
 .logo span {color:var(--blue)}
 .links {display:flex;gap:24px;font-size:14px;font-weight:700}
 .links a:hover {color:var(--blue)}
+.program-tab {display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;color:var(--blue);font-size:13px;font-weight:800;padding:10px 14px;border:1px solid #cfe7f2;border-radius:40px}
+.program-tab:hover {background:var(--ice)}
 .btn {display:inline-flex;justify-content:center;align-items:center;background:var(--blue);color:white;padding:14px 22px;border-radius:50px;font-size:14px;font-weight:800;border:1px solid var(--blue);cursor:pointer}
 .btn:hover {background:#066da3}
 .btn-outline {background:transparent;color:white;border-color:#ffffff99}
@@ -56,8 +59,11 @@ h2 {font-size:clamp(30px,4vw,44px);line-height:1.15;letter-spacing:-.8px}
 .programs {background:var(--navy);color:white}
 .programs .sectionhead p {color:#b9ccda}
 .cards {display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cards.single-product {grid-template-columns:minmax(0,680px);justify-content:center}
 .card {border:1px solid #ffffff22;background:linear-gradient(160deg,#ffffff14,#ffffff08);border-radius:24px;padding:27px;display:flex;flex-direction:column}
 .card.featured {border-color:var(--cyan);box-shadow:0 0 0 1px #53d6e822}
+.technique-card {background:linear-gradient(160deg,#087fbd38,#ffffff08);position:relative}
+.technique-card .cardlabel {color:var(--cyan)}
 .cardlabel {font-size:11px;text-transform:uppercase;letter-spacing:1.4px;font-weight:800;color:var(--cyan);margin-bottom:13px}
 .card h3 {font-size:23px;line-height:1.2;margin-bottom:12px}
 .card p {color:#c3d4df;font-size:14px;margin-bottom:18px}
@@ -98,6 +104,7 @@ h2 {font-size:clamp(30px,4vw,44px);line-height:1.15;letter-spacing:-.8px}
 .cta p {color:#e0edf5;max-width:640px;margin:18px auto 25px}
 footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
 .footerrow {display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+@media(max-width:1000px) {.cards {grid-template-columns:repeat(2,1fr)}}
 @media(max-width:850px) {
  .links {display:none}
  .aboutgrid {grid-template-columns:1fr;gap:30px}
@@ -146,7 +153,7 @@ footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
   <div class="hero-content">
    <div class="eyebrow">МАСТЕР СПОРТА ПО ПЛАВАНИЮ</div>
    <h1>Плавай <span>техничнее.</span><br>Тренируйся осознанно.</h1>
-   <p>Онлайн-программы плавания для триатлетов и пловцов на открытой воде. Понятный план тренировок, технические упражнения и контроль прогресса — в удобном темпе.</p>
+   <p>Готовая PDF-программа «Техника кроля за 4 недели» для самостоятельной работы над техникой плавания. Также доступны персональные услуги тренера.</p>
    <div class="actions">
     <a class="btn" href="#programs">Выбрать программу</a>
     <a class="btn btn-outline" href="#about">Познакомиться с тренером</a>
@@ -191,37 +198,21 @@ footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
 <section class="programs" id="programs">
  <div class="container">
   <div class="sectionhead">
-   <div class="kicker">Онлайн-программы</div>
-   <h2>Выбери свою следующую цель</h2>
-   <p>Начни с понятного плана и последовательно работай над техникой и выносливостью.</p>
+   <div class="kicker">Готовая PDF-программа</div>
+   <h2>Техника кроля за 4 недели</h2>
+   <p>Один готовый продукт для тех, кто хочет последовательно работать над техникой кроля и заниматься самостоятельно.</p>
   </div>
-  <div class="cards">
-   <article class="card">
-    <div class="cardlabel">Старт</div>
-    <h3>Кроль без лишних усилий</h3>
-    <p>Короткая программа, чтобы систематизировать работу над базовой техникой кроля.</p>
-    <div class="price">990 ₽</div>
-    <ul><li>План на 2 недели</li><li>6 тренировок</li><li>Упражнения на положение тела и дыхание</li><li>Чек-лист ошибок</li></ul>
-    <a class="btn" href="https://t.me/Aaallleeexxx96?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%C2%AB%D0%9A%D1%80%D0%BE%D0%BB%D1%8C%20%D0%B1%D0%B5%D0%B7%20%D0%BB%D0%B8%D1%88%D0%BD%D0%B8%D1%85%20%D1%83%D1%81%D0%B8%D0%BB%D0%B8%D0%B9%C2%BB%20%D0%B7%D0%B0%20990%20%E2%82%BD.%20%D0%A0%D0%B0%D1%81%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BA%D0%B0%D0%BA%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%83." target="_blank" rel="noopener">Заказать программу</a>
-   </article>
+  <div class="cards single-product">
    <article class="card featured">
-    <div class="cardlabel">Основная программа</div>
-    <h3>Плавание для триатлета</h3>
-    <p>Четыре недели структурированной работы над техникой, темпом и плавательной выносливостью.</p>
+    <div class="cardlabel">PDF · 4 недели</div>
+    <h3>Техника кроля за 4 недели</h3>
+    <p>Пошаговый материал для самостоятельной работы над техникой кроля: понятные рекомендации, упражнения и контрольные ориентиры.</p>
     <div class="price">2 490 ₽</div>
-    <ul><li>План на 4 недели</li><li>12 тренировок с дистанциями и отдыхом</li><li>Технические задания</li><li>Тесты в начале и конце</li><li>Дневник прогресса</li></ul>
-    <a class="btn" href="https://t.me/Aaallleeexxx96?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%C2%AB%D0%9F%D0%BB%D0%B0%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B4%D0%BB%D1%8F%20%D1%82%D1%80%D0%B8%D0%B0%D1%82%D0%BB%D0%B5%D1%82%D0%B0%C2%BB%20%D0%B7%D0%B0%202%20490%20%E2%82%BD.%20%D0%A0%D0%B0%D1%81%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BA%D0%B0%D0%BA%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%83." target="_blank" rel="noopener">Заказать программу</a>
-   </article>
-   <article class="card">
-    <div class="cardlabel">Специализация</div>
-    <h3>Открытая вода</h3>
-    <p>Подготовка навыков для более уверенного и организованного плавания на открытой воде.</p>
-    <div class="price">3 990 ₽</div>
-    <ul><li>План на 6 недель</li><li>Ориентирование и контроль направления</li><li>Работа над техникой при утомлении</li><li>Подготовка к старту и чек-лист безопасности</li></ul>
-    <a class="btn" href="https://t.me/Aaallleeexxx96?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%C2%AB%D0%9E%D1%82%D0%BA%D1%80%D1%8B%D1%82%D0%B0%D1%8F%20%D0%B2%D0%BE%D0%B4%D0%B0%C2%BB%20%D0%B7%D0%B0%203%20990%20%E2%82%BD.%20%D0%A0%D0%B0%D1%81%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BA%D0%B0%D0%BA%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%83." target="_blank" rel="noopener">Заказать программу</a>
+    <ul><li>Структура работы на 4 недели</li><li>Технические подсказки и упражнения</li><li>Чек-лист для контроля ошибок</li><li>Можно использовать в удобном темпе</li></ul>
+    <a class="btn" href="/technique.html">Подробнее о программе</a>
    </article>
   </div>
-  <p class="note">Цены предварительные. Кнопки пока ведут в Telegram — автоматическая оплата не подключена.</p>
+  <p class="note">Оплата и автоматическая выдача PDF пока не подключены.</p>
  </div>
 </section>
 
@@ -305,10 +296,11 @@ footer {background:#041321;color:#b8c9d5;padding:32px 0;font-size:13px}
 
 <footer>
  <div class="container footerrow">
-  <div><strong style="color:white;font-size:18px">ПЛАВАНИЕ</strong><br>Онлайн-программы по плаванию</div>
+  <div><strong style="color:white;font-size:18px">ПЛАВАНИЕ</strong><br>Готовая PDF-программа и персональные услуги</div>
   <div>© 2026 Алексей Лаврик · <a href="requisites.html">Реквизиты</a></div>
  </div>
 </footer>
 
 </body>
 </html>
+```
