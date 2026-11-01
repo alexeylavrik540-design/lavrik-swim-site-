@@ -52,7 +52,7 @@ test('download tokens are signed and expire', () => {
 });
 
 test('payment endpoint ignores client amount and uses server configured price', async () => {
-  setEnv({ YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test', PAYMENT_SITE_ORIGIN: 'https://www.lavrik-swim.ru' });
+  setEnv({ VERCEL_ENV: 'preview', YOOKASSA_MODE: 'test', YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test' });
   let sentBody;
   global.fetch = async (_url, options) => {
     sentBody = JSON.parse(options.body);
@@ -60,14 +60,14 @@ test('payment endpoint ignores client amount and uses server configured price', 
   };
   const createPayment = require('../api/create-payment');
   const res = responseRecorder();
-  await createPayment({ method: 'POST', headers: { origin: 'https://www.lavrik-swim.ru' }, body: { email: 'buyer@example.com', amount: 1 } }, res);
+  await createPayment({ method: 'POST', headers: { origin: 'https://lavrik-preview.vercel.app', host: 'lavrik-preview.vercel.app', 'content-type': 'application/json', 'idempotence-key': '123e4567-e89b-42d3-a456-426614174000' }, body: { email: 'buyer@example.com', amount: 1 } }, res);
   assert.equal(res.statusCode, 200);
   assert.equal(sentBody.amount.value, '2490.00');
   assert.equal(sentBody.metadata.email, 'buyer@example.com');
 });
 
 test('webhook does not email for a payment that the YooKassa API says is pending', async () => {
-  setEnv({ YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test', PAYMENT_SITE_ORIGIN: 'https://www.lavrik-swim.ru' });
+  setEnv({ VERCEL_ENV: 'preview', YOOKASSA_MODE: 'test', YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test' });
   let emailAttempted = false;
   global.fetch = async (url) => {
     if (String(url).includes('/v3/payments/')) return { ok: true, json: async () => ({

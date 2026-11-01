@@ -1,0 +1,6 @@
+# Do not deploy the paid PDF as a public static asset.
+output/pdf/
+
+# Keep draft payment code and PDF review assets out of the active deployment.
+integration-review/
+tmp/
