@@ -19,6 +19,14 @@ function validConfirmationUrl(value) {
   } catch { return false; }
 }
 
+function safeYooKassaText(value, maxLength = 180) {
+  if (typeof value !== 'string') return undefined;
+  return value
+    .replace(/[\r\n\t]+/g, ' ')
+    .replace(/(secret|authorization|password|token)\s*[:=]\s*\S+/gi, '$1=[redacted]')
+    .slice(0, maxLength);
+}
+
 function requestOrigin(req) {
   const rawOrigin = req.headers?.origin;
   const host = req.headers?.host;
@@ -79,8 +87,15 @@ module.exports = async function createPayment(req, res) {
     });
     let payment;
     try { payment = await response.json(); } catch { payment = null; }
-    if (!response.ok || !validConfirmationUrl(payment?.confirmation?.confirmation_url)) {
-      console.error('YooKassa rejected payment creation:', response.status, payment?.code || 'invalid_response');
+    if (!response.ok || !validConfirmationUrl(payment?.confirmation?.confirmation_url) || payment?.test !== true) {
+      console.error('YooKassa rejected payment creation:', {
+        status: response.status,
+        code: safeYooKassaText(payment?.code, 64) || 'invalid_response',
+        parameter: safeYooKassaText(payment?.parameter, 80),
+        description: safeYooKassaText(payment?.description),
+        errorId: safeYooKassaText(payment?.id, 64),
+        testPayment: payment?.test === true,
+      });
       return res.status(response.status === 429 ? 503 : 502).json({ error: 'Не удалось создать платёж. Попробуйте позже.' });
     }
     return res.status(200).json({ confirmationUrl: payment.confirmation.confirmation_url });

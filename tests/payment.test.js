@@ -56,7 +56,7 @@ test('payment endpoint ignores client amount and uses server configured price', 
   let sentBody;
   global.fetch = async (_url, options) => {
     sentBody = JSON.parse(options.body);
-    return { ok: true, json: async () => ({ confirmation: { confirmation_url: 'https://yookassa.ru/checkout' } }) };
+    return { ok: true, status: 200, json: async () => ({ test: true, confirmation: { confirmation_url: 'https://yookassa.ru/checkout' } }) };
   };
   const createPayment = require('../api/create-payment');
   const res = responseRecorder();

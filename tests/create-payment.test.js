@@ -50,7 +50,7 @@ function responseRecorder() {
 }
 
 function yookassaSuccess(url = 'https://yookassa.ru/checkout/confirmation') {
-  return { ok: true, status: 200, json: async () => ({ id: 'payment_test_123', confirmation: { confirmation_url: url } }) };
+  return { ok: true, status: 200, json: async () => ({ id: 'payment_test_123', test: true, confirmation: { confirmation_url: url } }) };
 }
 
 test.beforeEach(() => configurePreview());
@@ -200,13 +200,33 @@ test('rejects non-HTTPS or non-YooKassa confirmation links', async (t) => {
   }
 });
 
+test('does not return a checkout URL unless YooKassa confirms the payment is test-only', async () => {
+  global.fetch = async () => ({ ok: true, status: 200, json: async () => ({
+    id: 'payment_live_123', test: false,
+    confirmation: { confirmation_url: 'https://yookassa.ru/checkout/confirmation' },
+  }) });
+  const res = responseRecorder();
+  await createPayment(request(), res);
+  assert.equal(res.statusCode, 502);
+  assert.equal(res.body.confirmationUrl, undefined);
+});
+
 test('handles YooKassa errors and network timeouts without exposing secrets', async (t) => {
   await t.test('upstream rejection', async () => {
-    global.fetch = async () => ({ ok: false, status: 401, json: async () => ({ code: 'invalid_credentials', secret: 'must-not-leak' }) });
+    global.fetch = async () => ({ ok: false, status: 400, json: async () => ({
+      code: 'invalid_request', description: 'Invalid setting. Secret=must-not-leak',
+      parameter: 'confirmation.return_url', id: 'error-test-123', secret: 'must-not-leak',
+    }) });
+    const originalConsoleError = console.error;
+    let diagnostic;
+    console.error = (...args) => { diagnostic = args; };
     const res = responseRecorder();
-    await createPayment(request(), res);
+    try { await createPayment(request(), res); } finally { console.error = originalConsoleError; }
     assert.equal(res.statusCode, 502);
-    assert.doesNotMatch(JSON.stringify(res.body), /secret|invalid_credentials/);
+    assert.doesNotMatch(JSON.stringify(res.body), /secret|invalid_request/);
+    assert.match(JSON.stringify(diagnostic), /confirmation\.return_url/);
+    assert.match(JSON.stringify(diagnostic), /redacted/);
+    assert.doesNotMatch(JSON.stringify(diagnostic), /must-not-leak/);
   });
   await t.test('timeout', async () => {
     global.fetch = async () => { const error = new Error('timeout'); error.name = 'TimeoutError'; throw error; };
