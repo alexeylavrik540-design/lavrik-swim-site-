@@ -64,11 +64,6 @@
     .price { margin:12px 0; font-size:clamp(38px,7vw,54px); line-height:1.2; font-weight:900; }
     .price-section p { max-width:560px; margin:0 auto 18px; color:#d5e3ee; }
     .price-section .btn { background:#20a3df; color:white; }
-    .purchase-form { max-width:440px; margin:20px auto 0; display:grid; gap:10px; text-align:left; }
-    .purchase-form label { color:#d5e3ee; font-size:14px; font-weight:700; }
-    .purchase-form input { width:100%; min-height:48px; padding:12px 14px; border:1px solid #b8c9d5; border-radius:10px; font:inherit; }
-    .purchase-form .btn { width:100%; cursor:pointer; }
-    .purchase-status { min-height:24px; margin-top:10px !important; font-size:14px; }
     footer { padding:32px 0; text-align:center; color:var(--muted); font-size:13px; }
     footer a { text-decoration:none; }
     @media (max-width:700px) {
@@ -164,13 +159,8 @@
         <h2>Техника кроля за 4 недели</h2>
         <div class="price">2 490 ₽</div>
         <p>12 тренировок на 4 недели: дыхание, баланс, работа рук и ритм кроля. Внутри — задания, критерии прогресса и дневник для самостоятельных занятий.</p>
-        <form class="purchase-form" id="purchase-form" aria-describedby="purchase-status">
-          <label for="buyer-email">Email для отправки программы</label>
-          <input id="buyer-email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com">
-          <button class="btn" id="purchase-button" type="submit">Перейти к оплате — 2 490 ₽</button>
-        </form>
-        <p class="purchase-status" id="purchase-status" role="status" aria-live="polite">Цена фиксирована на сервере. PDF будет выдан только после отдельного подтверждения оплаты.</p>
-        <a class="contact-link" href="https://t.me/Aaallleeexxx96" target="_blank" rel="noopener noreferrer">Написать @Aaallleeexxx96</a>
+        <p>Для заказа и получения программы напишите нам в Telegram</p>
+        <a class="btn" href="https://t.me/lavrikSwim" target="_blank" rel="noopener noreferrer">Купить программу</a>
       </section>
     </main>
 
@@ -179,84 +169,5 @@
       <a href="https://t.me/lavrikSwim">Telegram-канал</a>
     </footer>
   </div>
-  <script>
-    const purchaseForm = document.getElementById('purchase-form');
-    const purchaseButton = document.getElementById('purchase-button');
-    const purchaseStatus = document.getElementById('purchase-status');
-    const checkoutStorageKey = 'lavrik.crawl-4-weeks.pending-checkout';
-    const maxRetryAgeMs = 23 * 60 * 60 * 1000;
-
-    async function emailFingerprint(email) {
-      const bytes = new TextEncoder().encode(email.trim().toLowerCase());
-      const digest = await crypto.subtle.digest('SHA-256', bytes);
-      return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
-    }
-
-    async function getCheckoutIdempotenceKey(email) {
-      const fingerprint = await emailFingerprint(email);
-      const getOrCreate = () => {
-        const stored = localStorage.getItem(checkoutStorageKey);
-        if (stored) {
-          let attempt;
-          try { attempt = JSON.parse(stored); } catch { throw new Error('Не удалось проверить предыдущую попытку оплаты. Обратитесь в Telegram.'); }
-          if (attempt.emailFingerprint !== fingerprint) {
-            throw new Error('Есть незавершённая попытка оплаты. Не меняйте email и не создавайте новый платёж до проверки её статуса.');
-          }
-          if (!Number.isFinite(attempt.createdAt) || Date.now() - attempt.createdAt > maxRetryAgeMs) {
-            throw new Error('Срок безопасного повтора истёк. Сначала проверьте статус платежа в ЮKassa или напишите в Telegram.');
-          }
-          if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(attempt.key)) {
-            throw new Error('Не удалось проверить ключ оплаты. Обратитесь в Telegram.');
-          }
-          return attempt.key;
-        }
-
-        const attempt = { key: crypto.randomUUID(), emailFingerprint: fingerprint, createdAt: Date.now() };
-        localStorage.setItem(checkoutStorageKey, JSON.stringify(attempt));
-        return attempt.key;
-      };
-
-      if (navigator.locks?.request) {
-        return navigator.locks.request('lavrik-crawl-4-weeks-checkout', getOrCreate);
-      }
-      return getOrCreate();
-    }
-
-    if (new URLSearchParams(location.search).get('payment') === 'return') {
-      purchaseStatus.textContent = 'Возврат со страницы ЮKassa не подтверждает оплату. Повторный запрос использует тот же ключ, чтобы не создать второй платёж. Выдача PDF будет подключена после отдельной проверки оплаты.';
-    }
-
-    purchaseForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      if (!purchaseForm.reportValidity()) return;
-
-      purchaseButton.disabled = true;
-      purchaseStatus.textContent = 'Подготавливаем безопасный checkout…';
-      try {
-        const email = purchaseForm.elements.email.value.trim().toLowerCase();
-        const idempotenceKey = await getCheckoutIdempotenceKey(email);
-        const response = await fetch('/api/create-payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Idempotence-Key': idempotenceKey,
-          },
-          body: JSON.stringify({ email }),
-        });
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.error || 'Не удалось создать платёж.');
-
-        const checkoutUrl = new URL(result.confirmationUrl);
-        const validHost = checkoutUrl.hostname === 'yookassa.ru' || checkoutUrl.hostname.endsWith('.yookassa.ru') ||
-          checkoutUrl.hostname === 'yoomoney.ru' || checkoutUrl.hostname.endsWith('.yoomoney.ru');
-        if (checkoutUrl.protocol !== 'https:' || !validHost) throw new Error('Получена некорректная ссылка оплаты.');
-        purchaseStatus.textContent = 'Переходим на защищённую страницу ЮKassa…';
-        location.assign(checkoutUrl.href);
-      } catch (error) {
-        purchaseStatus.textContent = error.message || 'Сервис оплаты временно недоступен.';
-        purchaseButton.disabled = false;
-      }
-    });
-  </script>
 </body>
 </html>
