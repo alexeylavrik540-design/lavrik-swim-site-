@@ -5,11 +5,95 @@ const PRICE_MINOR = 249000;
 const PRICE_VALUE = '2490.00';
 const CURRENCY = 'RUB';
 const PRODUCT_TITLE = 'Техника кроля за 4 недели';
+const PAYMENT_SUBJECTS = new Set([
+  'commodity', 'excise', 'job', 'service', 'payment', 'casino', 'gambling_bet',
+  'gambling_prize', 'lottery', 'lottery_prize', 'intellectual_activity',
+  'agent_commission', 'property_right', 'non_operating_gain', 'sales_tax',
+  'resort_fee', 'marked', 'non_marked', 'marked_excise', 'non_marked_excise',
+  'fine', 'tax', 'lien', 'cost', 'agent_withdrawals',
+  'pension_insurance_without_payouts', 'pension_insurance_with_payouts',
+  'health_insurance_without_payouts', 'health_insurance_with_payouts',
+  'health_insurance', 'another',
+]);
+const PAYMENT_MODES = new Set(['full_prepayment', 'full_payment']);
 
 function requiredEnv(name) {
   const value = process.env[name];
   if (!value) throw new Error(`Missing environment variable: ${name}`);
   return value;
+}
+
+function requiredReceiptEnv(name) {
+  const value = process.env[name];
+  if (typeof value !== 'string' || value.trim() === '') {
+    const error = new Error(`Missing required receipt setting: ${name}`);
+    error.code = 'MISSING_RECEIPT_SETTING';
+    error.parameter = name;
+    throw error;
+  }
+  return value.trim();
+}
+
+function buildReceipt(email) {
+  const vatCode = requiredReceiptEnv('YOOKASSA_VAT_CODE');
+  if (!/^(?:[1-9]|1[0-2])$/.test(vatCode)) {
+    const error = new Error('Invalid YOOKASSA_VAT_CODE');
+    error.code = 'INVALID_RECEIPT_SETTING';
+    error.parameter = 'YOOKASSA_VAT_CODE';
+    throw error;
+  }
+
+  const paymentSubject = requiredReceiptEnv('YOOKASSA_PAYMENT_SUBJECT');
+  if (!PAYMENT_SUBJECTS.has(paymentSubject)) {
+    const error = new Error('Invalid YOOKASSA_PAYMENT_SUBJECT');
+    error.code = 'INVALID_RECEIPT_SETTING';
+    error.parameter = 'YOOKASSA_PAYMENT_SUBJECT';
+    throw error;
+  }
+
+  const paymentMode = requiredReceiptEnv('YOOKASSA_PAYMENT_MODE');
+  if (!PAYMENT_MODES.has(paymentMode)) {
+    const error = new Error('Invalid YOOKASSA_PAYMENT_MODE');
+    error.code = 'INVALID_RECEIPT_SETTING';
+    error.parameter = 'YOOKASSA_PAYMENT_MODE';
+    throw error;
+  }
+
+  return {
+    customer: { email },
+    items: [{
+      description: PRODUCT_TITLE,
+      quantity: 1,
+      amount: { value: PRICE_VALUE, currency: CURRENCY },
+      vat_code: Number(vatCode),
+      payment_subject: paymentSubject,
+      payment_mode: paymentMode,
+    }],
+    internet: 'true',
+  };
+}
+
+function receiptMatchesPaymentAmount(paymentAmount, receipt) {
+  const toMinorUnits = (value) => {
+    if (typeof value !== 'string' || !/^(?:0|[1-9]\d*)\.\d{2}$/.test(value)) return null;
+    const [whole, fraction] = value.split('.');
+    return BigInt(whole) * 100n + BigInt(fraction);
+  };
+
+  const expected = toMinorUnits(paymentAmount?.value);
+  if (expected === null || paymentAmount?.currency !== CURRENCY || !Array.isArray(receipt?.items) || receipt.items.length === 0) return false;
+
+  let totalThousandthsOfMinor = 0n;
+  for (const item of receipt.items) {
+    const itemMinor = toMinorUnits(item?.amount?.value);
+    const quantity = item?.quantity;
+    if (itemMinor === null || item?.amount?.currency !== CURRENCY ||
+        typeof quantity !== 'number' || !Number.isFinite(quantity) || quantity <= 0 ||
+        !Number.isSafeInteger(quantity * 1000)) return false;
+    totalThousandthsOfMinor += itemMinor * BigInt(quantity * 1000);
+  }
+
+  return totalThousandthsOfMinor === expected * 1000n;
 }
 
 function paymentAuth() {
@@ -79,6 +163,6 @@ async function fetchPrivatePdf() {
 
 module.exports = {
   PRODUCT_ID, PRICE_MINOR, PRICE_VALUE, CURRENCY, PRODUCT_TITLE,
-  requiredEnv, amountMatches, fetchPayment, signDownloadToken, verifyDownloadToken,
+  requiredEnv, buildReceipt, receiptMatchesPaymentAmount, amountMatches, fetchPayment, signDownloadToken, verifyDownloadToken,
   productPaymentMatches, fetchPrivatePdf,
 };

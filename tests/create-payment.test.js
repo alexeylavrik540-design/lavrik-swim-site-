@@ -4,10 +4,15 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const createPayment = require('../api/create-payment');
-const { PRODUCT_ID, PRICE_VALUE, CURRENCY } = require('../api/_lib/payment');
+const {
+  PRODUCT_ID, PRICE_VALUE, CURRENCY, buildReceipt, receiptMatchesPaymentAmount,
+} = require('../api/_lib/payment');
 
 const originalFetch = global.fetch;
-const envKeys = ['VERCEL_ENV', 'YOOKASSA_MODE', 'YOOKASSA_SHOP_ID', 'YOOKASSA_SECRET_KEY', 'PAYMENT_SITE_ORIGIN'];
+const envKeys = [
+  'VERCEL_ENV', 'YOOKASSA_MODE', 'YOOKASSA_SHOP_ID', 'YOOKASSA_SECRET_KEY',
+  'YOOKASSA_VAT_CODE', 'YOOKASSA_PAYMENT_SUBJECT', 'YOOKASSA_PAYMENT_MODE', 'PAYMENT_SITE_ORIGIN',
+];
 const originalEnv = Object.fromEntries(envKeys.map((key) => [key, process.env[key]]));
 
 function configurePreview() {
@@ -15,6 +20,9 @@ function configurePreview() {
   process.env.YOOKASSA_MODE = 'test';
   process.env.YOOKASSA_SHOP_ID = 'test-shop-id';
   process.env.YOOKASSA_SECRET_KEY = 'test-secret-key';
+  process.env.YOOKASSA_VAT_CODE = '1';
+  process.env.YOOKASSA_PAYMENT_SUBJECT = 'service';
+  process.env.YOOKASSA_PAYMENT_MODE = 'full_payment';
   delete process.env.PAYMENT_SITE_ORIGIN;
 }
 
@@ -153,10 +161,83 @@ test('uses fixed server price and ignores a client-supplied price', async () => 
   assert.equal(outgoing.body.amount.currency, CURRENCY);
   assert.equal(outgoing.body.metadata.product_id, PRODUCT_ID);
   assert.equal(outgoing.body.metadata.email, 'buyer@example.com');
+  assert.deepEqual(outgoing.body.receipt, {
+    customer: { email: 'buyer@example.com' },
+    items: [{
+      description: 'Техника кроля за 4 недели', quantity: 1,
+      amount: { value: '2490.00', currency: 'RUB' },
+      vat_code: 1, payment_subject: 'service', payment_mode: 'full_payment',
+    }],
+    internet: 'true',
+  });
+  assert.equal(receiptMatchesPaymentAmount(outgoing.body.amount, outgoing.body.receipt), true);
   assert.equal(outgoing.options.headers['Idempotence-Key'], key);
   assert.match(outgoing.options.headers.Authorization, /^Basic /);
   assert.equal(outgoing.body.confirmation.return_url, 'https://lavrik-preview.vercel.app/technique.html?payment=return');
   assert.equal(res.body.confirmationUrl, 'https://yookassa.ru/checkout/confirmation');
+});
+
+test('receipt configuration is required and validated before the YooKassa request', async (t) => {
+  for (const name of ['YOOKASSA_VAT_CODE', 'YOOKASSA_PAYMENT_SUBJECT', 'YOOKASSA_PAYMENT_MODE']) {
+    await t.test(`missing ${name}`, async () => {
+      delete process.env[name];
+      let called = false;
+      global.fetch = async () => { called = true; return yookassaSuccess(); };
+      const res = responseRecorder();
+      await createPayment(request(), res);
+      assert.equal(res.statusCode, 503);
+      assert.match(res.body.error, new RegExp(name));
+      assert.equal(called, false);
+    });
+  }
+
+  for (const [name, value] of [
+    ['YOOKASSA_VAT_CODE', '13'],
+    ['YOOKASSA_PAYMENT_SUBJECT', 'made-up-subject'],
+    ['YOOKASSA_PAYMENT_MODE', 'advance'],
+  ]) {
+    await t.test(`invalid ${name}`, async () => {
+      process.env[name] = value;
+      let called = false;
+      global.fetch = async () => { called = true; return yookassaSuccess(); };
+      const res = responseRecorder();
+      await createPayment(request(), res);
+      assert.equal(res.statusCode, 503);
+      assert.match(res.body.error, new RegExp(name));
+      assert.equal(called, false);
+    });
+  }
+});
+
+test('builds receipt only from configured values and rejects missing or invalid settings', async (t) => {
+  assert.deepEqual(buildReceipt('buyer@example.com'), {
+    customer: { email: 'buyer@example.com' },
+    items: [{
+      description: 'Техника кроля за 4 недели', quantity: 1,
+      amount: { value: PRICE_VALUE, currency: CURRENCY },
+      vat_code: 1, payment_subject: 'service', payment_mode: 'full_payment',
+    }],
+    internet: 'true',
+  });
+  await t.test('missing value', () => {
+    delete process.env.YOOKASSA_VAT_CODE;
+    assert.throws(() => buildReceipt('buyer@example.com'), { code: 'MISSING_RECEIPT_SETTING', parameter: 'YOOKASSA_VAT_CODE' });
+  });
+  await t.test('invalid enum value', () => {
+    process.env.YOOKASSA_VAT_CODE = '1';
+    process.env.YOOKASSA_PAYMENT_SUBJECT = 'invented';
+    assert.throws(() => buildReceipt('buyer@example.com'), { code: 'INVALID_RECEIPT_SETTING', parameter: 'YOOKASSA_PAYMENT_SUBJECT' });
+  });
+});
+
+test('receipt total must match payment total and currency', () => {
+  const receipt = buildReceipt('buyer@example.com');
+  assert.equal(receiptMatchesPaymentAmount({ value: '2490.00', currency: 'RUB' }, receipt), true);
+  assert.equal(receiptMatchesPaymentAmount({ value: '2490.01', currency: 'RUB' }, receipt), false);
+  assert.equal(receiptMatchesPaymentAmount({ value: '2490.00', currency: 'USD' }, receipt), false);
+  const invalidItemAmount = structuredClone(receipt);
+  invalidItemAmount.items[0].amount.value = '2489.99';
+  assert.equal(receiptMatchesPaymentAmount({ value: '2490.00', currency: 'RUB' }, invalidItemAmount), false);
 });
 
 test('same retry key and payload create only one payment in the YooKassa idempotency model', async () => {

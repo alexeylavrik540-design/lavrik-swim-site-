@@ -1,6 +1,9 @@
 'use strict';
 
-const { PRODUCT_ID, PRICE_VALUE, CURRENCY, PRODUCT_TITLE, requiredEnv } = require('./_lib/payment');
+const {
+  PRODUCT_ID, PRICE_VALUE, CURRENCY, PRODUCT_TITLE, requiredEnv,
+  buildReceipt, receiptMatchesPaymentAmount,
+} = require('./_lib/payment');
 
 function validEmail(value) {
   return typeof value === 'string' && value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -74,14 +77,32 @@ module.exports = async function createPayment(req, res) {
     console.error('Payment configuration is incomplete:', error.message);
     return res.status(503).json({ error: 'Сервис оплаты временно недоступен.' });
   }
+
+  let receipt;
+  try {
+    receipt = buildReceipt(email);
+  } catch (error) {
+    console.error('YooKassa receipt configuration is incomplete:', error.code, error.parameter);
+    const detail = error.code === 'MISSING_RECEIPT_SETTING'
+      ? `Не задан параметр чека ${error.parameter}.`
+      : `Некорректно задан параметр чека ${error.parameter}.`;
+    return res.status(503).json({ error: `Оплата временно недоступна. ${detail}` });
+  }
+
+  const amount = { value: PRICE_VALUE, currency: CURRENCY };
+  if (!receiptMatchesPaymentAmount(amount, receipt)) {
+    console.error('YooKassa receipt amount does not match the payment amount');
+    return res.status(500).json({ error: 'Сумма чека не совпадает с суммой платежа.' });
+  }
+
   try {
     const response = await fetch('https://api.yookassa.ru/v3/payments', {
       method: 'POST',
       headers: { Authorization: auth, 'Idempotence-Key': idempotenceKey, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        amount: { value: PRICE_VALUE, currency: CURRENCY }, capture: true,
+        amount, capture: true,
         confirmation: { type: 'redirect', return_url: `${siteOrigin}/technique.html?payment=return` },
-        description: PRODUCT_TITLE, metadata: { product_id: PRODUCT_ID, email },
+        description: PRODUCT_TITLE, metadata: { product_id: PRODUCT_ID, email }, receipt,
       }),
       signal: AbortSignal.timeout(12000),
     });

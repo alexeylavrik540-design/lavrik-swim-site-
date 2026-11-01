@@ -52,7 +52,10 @@ test('download tokens are signed and expire', () => {
 });
 
 test('payment endpoint ignores client amount and uses server configured price', async () => {
-  setEnv({ VERCEL_ENV: 'preview', YOOKASSA_MODE: 'test', YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test' });
+  setEnv({
+    VERCEL_ENV: 'preview', YOOKASSA_MODE: 'test', YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test',
+    YOOKASSA_VAT_CODE: '1', YOOKASSA_PAYMENT_SUBJECT: 'service', YOOKASSA_PAYMENT_MODE: 'full_payment',
+  });
   let sentBody;
   global.fetch = async (_url, options) => {
     sentBody = JSON.parse(options.body);
@@ -64,6 +67,7 @@ test('payment endpoint ignores client amount and uses server configured price', 
   assert.equal(res.statusCode, 200);
   assert.equal(sentBody.amount.value, '2490.00');
   assert.equal(sentBody.metadata.email, 'buyer@example.com');
+  assert.equal(sentBody.receipt.items[0].amount.value, '2490.00');
 });
 
 test('webhook does not email for a payment that the YooKassa API says is pending', async () => {
@@ -118,4 +122,58 @@ test('webhook attaches the private PDF only after YooKassa confirms success', as
   assert.equal(emailPayload.attachments[0].filename, 'LAVRIK_SWIM_Tekhnika_krolya_4_nedeli.pdf');
   assert.ok(emailPayload.attachments[0].content.length > 0);
   assert.match(emailPayload.html, /api\/download\?token=/);
+});
+
+test('repeated succeeded webhook uses a stable Resend idempotency key and payload', async () => {
+  setEnv({
+    YOOKASSA_SHOP_ID: 'shop-test', YOOKASSA_SECRET_KEY: 'secret-test',
+    RESEND_API_KEY: 're_test', RESEND_FROM: 'LAVRIK SWIM <program@example.com>',
+    PAYMENT_SITE_ORIGIN: 'https://www.lavrik-swim.ru',
+    DELIVERY_TOKEN_SECRET: 'unit-test-secret-that-is-long-enough',
+    PRODUCT_PDF_BLOB_URL: 'https://store.private.blob.vercel-storage.com/products/program.pdf',
+    BLOB_READ_WRITE_TOKEN: 'blob-test',
+  });
+  const resendRequests = [];
+  const acceptedByKey = new Map();
+  let deliveredMessages = 0;
+  const createdAt = '2026-11-01T00:00:00.000Z';
+  global.fetch = async (url, options = {}) => {
+    if (String(url).includes('/v3/payments/')) return { ok: true, json: async () => ({
+      id: 'payment_repeat_123', status: 'succeeded', created_at: createdAt,
+      amount: { value: '2490.00', currency: 'RUB' },
+      metadata: { product_id: PRODUCT_ID, email: 'buyer@example.com' },
+    }) };
+    if (String(url) === 'https://store.private.blob.vercel-storage.com/products/program.pdf') {
+      const bytes = Buffer.from('%PDF-1.4 fake-pdf');
+      return { ok: true, headers: { get: () => 'application/pdf' }, arrayBuffer: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) };
+    }
+    if (String(url) === 'https://api.resend.com/emails') {
+      const payload = JSON.parse(options.body);
+      const key = options.headers['Idempotency-Key'];
+      resendRequests.push({ key, payload });
+      const priorPayload = acceptedByKey.get(key);
+      if (priorPayload === undefined) {
+        acceptedByKey.set(key, JSON.stringify(payload));
+        deliveredMessages += 1;
+      } else {
+        assert.equal(priorPayload, JSON.stringify(payload));
+      }
+      return { ok: true, text: async () => '' };
+    }
+    throw new Error(`Unexpected request to ${url}`);
+  };
+
+  const webhook = require('../api/yookassa-webhook');
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    const res = responseRecorder();
+    await webhook({ method: 'POST', body: { event: 'payment.succeeded', object: { id: 'payment_repeat_123' } } }, res);
+    assert.equal(res.statusCode, 200);
+  }
+
+  assert.equal(resendRequests.length, 2);
+  assert.equal(resendRequests[0].key, 'yookassa-payment_repeat_123');
+  assert.equal(resendRequests[1].key, resendRequests[0].key);
+  assert.deepEqual(resendRequests[1].payload, resendRequests[0].payload);
+  assert.equal(deliveredMessages, 1);
+  assert.ok(resendRequests[0].payload.attachments[0].content.length > 0);
 });
